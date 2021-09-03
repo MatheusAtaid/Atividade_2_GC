@@ -10,10 +10,18 @@ const studentsController = new StudentsController();
 routes.get("/ping", (_, res) => res.json("pong"));
 
 routes.get("/students", studentsController.get);
+
 routes.post(
   "/students",
   celebrate({ body: Joi.object().keys(StudentSchema) }),
   studentsController.create
+);
+
+
+routes.post(
+  "/studentsUpdate",
+  celebrate({ body: Joi.object().keys(StudentSchema) }),
+  studentsController.update
 );
 //? Why not add an update, delete and get one routes/
 

@@ -14,4 +14,13 @@ export class StudentsController {
 
     return res.status(StatusCodes.CREATED).json(newStudent);
   }
+
+  async update(req: Request, res: Response) {
+    const newStudent = await StudentsDB.updateStudent(req.body);
+    console.log("update");
+
+    if(newStudent == null)
+      return res.status(StatusCodes.NOT_MODIFIED).json(newStudent);
+    return res.status(StatusCodes.OK).json(newStudent);
+  }
 }

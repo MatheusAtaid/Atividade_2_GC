@@ -30,4 +30,15 @@ function addStudent(student: Student) {
  */
 const getStudents = () => Promise.resolve(Object.freeze([...students]));
 
-export { addStudent, getStudents };
+function updateStudent(student: Student) {
+  for(let c = 0; c < students.length; c++){
+    if(students[c].id == student.id){
+      students[c] = Object.freeze(student);
+      return Promise.resolve(students[c]);
+    }
+  }
+
+  return null;
+}
+
+export { addStudent, getStudents, updateStudent };

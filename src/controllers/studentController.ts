@@ -1,5 +1,5 @@
 import * as StudentsDB from "../db/students";
-import { Request, Response } from "express";
+import { request, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
 export class StudentsController {
@@ -9,6 +9,13 @@ export class StudentsController {
     return res.status(StatusCodes.OK).json(students);
   }
 
+  async deleteStudents(req: Request, res: Response) {
+    // delete the post
+    const newStudent = await StudentsDB.deleteStudents(Number.parseInt(req.params.id));
+    // return response
+    return res.status(StatusCodes.OK);
+  };
+  
   async create(req: Request, res: Response) {
     const newStudent = await StudentsDB.addStudent(req.body);
 

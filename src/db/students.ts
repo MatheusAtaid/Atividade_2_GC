@@ -24,10 +24,18 @@ function addStudent(student: Student) {
   return Promise.resolve(newStudent);
 }
 
+function deleteStudents(id: Number) {
+  var index = students.findIndex(x => x.id === id);
+  if (index > -1) {
+    students.splice(index, 1);
+  }
+}
+
 /**
  * Returns student list
  * @returns Students
  */
 const getStudents = () => Promise.resolve(Object.freeze([...students]));
 
-export { addStudent, getStudents };
+
+export { addStudent, getStudents, deleteStudents};

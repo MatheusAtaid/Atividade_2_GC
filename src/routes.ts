@@ -17,4 +17,6 @@ routes.post(
 );
 //? Why not add an update, delete and get one routes/
 
+routes.delete('/deleteStudent/:id', studentsController.deleteStudents);
+
 export default routes;

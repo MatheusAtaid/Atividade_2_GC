@@ -8,6 +8,13 @@ const students: Student[] = [
     city: "Belo Horizonte",
     birth: new Date("11/13/1999"),
   },
+  {
+    id: 2,
+    name: "Jose",
+    email: "Jose@example.com",
+    city: "Belo Horizonte",
+    birth: new Date("11/13/1999"),
+  }
 ];
 
 /**
@@ -16,7 +23,7 @@ const students: Student[] = [
  * @returns new student
  */
 function addStudent(student: Student) {
-  const newStudent = {
+  var newStudent = {
     id: students.length ? students[students.length - 1].id! + 1 : 1,
     ...student,
   };
@@ -38,5 +45,13 @@ function deleteStudents(id: Number) {
  */
 const getStudents = () => Promise.resolve(Object.freeze([...students]));
 
+function updateStudent(student: Student) {
+  students.findIndex(element => {
+    if(element.id === student.id)
+      students[students.indexOf(element)] = student;
+  });
 
-export { addStudent, getStudents, deleteStudents};
+  return student;
+}
+
+export { addStudent, getStudents, updateStudent, deleteStudents};

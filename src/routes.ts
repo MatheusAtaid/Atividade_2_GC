@@ -17,6 +17,7 @@ routes.post(
 );
 //? Why not add an update, delete and get one routes/
 
-routes.delete('/deleteStudent/:id', studentsController.deleteStudents);
+routes.delete('/students/:id', celebrate({ params: Joi.object().keys({id:Joi.number().required()})}), 
+studentsController.deleteStudents);
 
 export default routes;

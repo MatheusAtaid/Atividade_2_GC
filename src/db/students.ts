@@ -29,6 +29,7 @@ function deleteStudents(id: Number) {
   if (index > -1) {
     students.splice(index, 1);
   }
+  return Promise.resolve();
 }
 
 /**

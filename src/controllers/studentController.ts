@@ -16,11 +16,10 @@ export class StudentsController {
   }
 
   async update(req: Request, res: Response) {
-    const newStudent = await StudentsDB.updateStudent(req.body);
-    console.log("update");
+    const updateStudent = await StudentsDB.updateStudent(req.body);
 
-    if(newStudent == null)
-      return res.status(StatusCodes.NOT_MODIFIED).json(newStudent);
-    return res.status(StatusCodes.OK).json(newStudent);
+    if(updateStudent == null)
+      return res.status(StatusCodes.NOT_MODIFIED).json(updateStudent);
+    return res.status(StatusCodes.OK).json(updateStudent);
   }
 }

@@ -8,6 +8,13 @@ const students: Student[] = [
     city: "Belo Horizonte",
     birth: new Date("11/13/1999"),
   },
+  {
+    id: 2,
+    name: "Jose",
+    email: "Jose@example.com",
+    city: "Belo Horizonte",
+    birth: new Date("11/13/1999"),
+  }
 ];
 
 /**
@@ -16,7 +23,7 @@ const students: Student[] = [
  * @returns new student
  */
 function addStudent(student: Student) {
-  const newStudent = {
+  var newStudent = {
     id: students.length ? students[students.length - 1].id! + 1 : 1,
     ...student,
   };
@@ -31,14 +38,12 @@ function addStudent(student: Student) {
 const getStudents = () => Promise.resolve(Object.freeze([...students]));
 
 function updateStudent(student: Student) {
-  for(let c = 0; c < students.length; c++){
-    if(students[c].id == student.id){
-      students[c] = Object.freeze(student);
-      return Promise.resolve(students[c]);
-    }
-  }
+  students.findIndex(element => {
+    if(element.id === student.id)
+      students[students.indexOf(element)] = student;
+  });
 
-  return null;
+  return student;
 }
 
 export { addStudent, getStudents, updateStudent };

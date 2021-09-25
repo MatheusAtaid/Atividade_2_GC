@@ -68,9 +68,18 @@ describe("Test student requests", () => {
     const studentID = 1;
 
     await supertest(app)
-      .post("/students/"+studentID)
+      .delete("/students/"+studentID)
       .expect(200)
       .then((res) => expect(res.body).toMatch('Ok'));
+  });
+
+  it('should delete a student', async () => {
+    const studentID = 100;
+
+    await supertest(app)
+      .delete("/students/"+studentID)
+      .expect(404)
+      .then((res) => expect(res.body).toMatch('Não Encontrado'));
   });
 
 });

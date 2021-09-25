@@ -15,9 +15,12 @@ export class StudentsController {
 
   async deleteStudents(req: Request, res: Response) {
     // delete the post
-    await StudentsDB.deleteStudents(Number(req.params.id));
+    const idDeleted = await StudentsDB.deleteStudents(Number(req.params.id));
     // return response
-    return res.status(StatusCodes.OK).json('Ok');
+    if(idDeleted > -1)
+      return res.status(StatusCodes.OK).json('Ok');
+    else
+      return res.status(StatusCodes.NOT_FOUND).json('Não Encontrado');
   };
   
   async create(req: Request, res: Response) {

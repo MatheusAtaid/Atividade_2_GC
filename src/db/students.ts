@@ -46,12 +46,15 @@ function deleteStudents(id: Number) {
 const getStudents = () => Promise.resolve(Object.freeze([...students]));
 
 function updateStudent(student: Student) {
-  students.findIndex(element => {
-    if(element.id === student.id)
-      students[students.indexOf(element)] = student;
-  });
+  return new Promise<null|Student>((resolve) => {
+    const id = students.findIndex(element => element.id == student.id);
 
-  return student;
+    if(id == -1)
+      resolve(null);
+
+    students[id] = student;
+    resolve(students[id]);
+  });
 }
 
 export { addStudent, getStudents, updateStudent, deleteStudents};

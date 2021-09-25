@@ -7,15 +7,14 @@ describe("Test student requests", () => {
       .get("/students")
       .expect(200)
       .then((res) =>
-        expect(res.body).toMatchObject([
+        expect(res.body[0]).toMatchObject(
           {
             id: 1,
             name: "John Doe",
             email: "john.doe@example.com",
             city: "Belo Horizonte",
             birth: new Date("11/13/1999").toISOString(),
-          },
-        ])
+          })
       );
   });
 
@@ -30,6 +29,38 @@ describe("Test student requests", () => {
     await supertest(app)
       .post("/students")
       .send(newStudent)
-      .then((res) => expect(res.body).toMatchObject({ id: 2, ...newStudent }));
+      .then((res) => expect(res.body).toMatchObject({ id: 3, ...newStudent }));
+  });
+
+  it("should update student", async () => {
+    const updateStudent = {
+      id: 1,
+      name: "John Doe 3",
+      email: "john.doe.3@example.com",
+      city: "Belo Horizonte",
+      birth: new Date("11/13/1999").toISOString(),
+    };
+
+    await supertest(app)
+      .post("/studentsUpdate")
+      .send(updateStudent)
+      .expect(200)
+      .then((res) => expect(res.body).toMatchObject(updateStudent));
+  });
+
+  it("should not update student", async () => {
+    const updateStudent = {
+      id: 6,
+      name: "John Doe 3",
+      email: "john.doe.3@example.com",
+      city: "Belo Horizonte",
+      birth: new Date("11/13/1999").toISOString(),
+    };
+
+    await supertest(app)
+      .post("/studentsUpdate")
+      .send(updateStudent)
+      .expect(304)
+      .then((res) => expect(res.body).toMatchObject({}));
   });
 });

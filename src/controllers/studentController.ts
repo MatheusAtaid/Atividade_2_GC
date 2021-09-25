@@ -9,6 +9,10 @@ export class StudentsController {
     return res.status(StatusCodes.OK).json(students);
   }
 
+  async hello(req: Request, res: Response) {
+    return res.status(StatusCodes.OK).json(req.body.name);
+  }
+
   async deleteStudents(req: Request, res: Response) {
     // delete the post
     await StudentsDB.deleteStudents(Number(req.params.id));
@@ -26,7 +30,7 @@ export class StudentsController {
     const updateStudent = await StudentsDB.updateStudent(req.body);
 
     if(updateStudent == null)
-      return res.status(StatusCodes.NOT_MODIFIED).json(updateStudent);
+      return res.status(StatusCodes.NOT_MODIFIED).json(null);
     return res.status(StatusCodes.OK).json(updateStudent);
   }
 }

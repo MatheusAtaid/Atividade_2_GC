@@ -9,6 +9,8 @@ const studentsController = new StudentsController();
 
 routes.get("/ping", (_, res) => res.json("pong"));
 
+routes.post("/hello", (req, res) => res.json(`Hello ${req.body.name}`));
+
 routes.get("/students", studentsController.get);
 
 routes.post(

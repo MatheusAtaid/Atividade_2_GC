@@ -8,4 +8,14 @@ describe("Test base requests", () => {
       .expect(200)
       .then((res) => expect(res.body).toBe("pong"));
   });
+
+  it("should return hello", async () => {
+    await supertest(app)
+      .post("/hello")
+      .send({"name": 'Marcos'})
+      .expect(200)
+      .then((res) => expect(res.body).toBe("Hello Marcos"));
+  });
 });
+
+

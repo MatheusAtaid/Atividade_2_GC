@@ -8,7 +8,10 @@ jobs:
     
     steps:
       - name: "Say Hello"
-        run: echo "Hello Word"
+        env:
+          PLANET: Earth
+          NAME: {{ secrets.NAME }}
+        run: echo "Hello $NAME from planet $PLANET"
 
   listing:
     runs-on: ubuntu-latest

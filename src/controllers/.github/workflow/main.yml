@@ -1,0 +1,14 @@
+name: Stidents Api Pipeline
+
+on: 
+  push:
+    branches:
+      - update
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    
+    steps:
+      -name: "Say Hello"
+      run: echo "Hello Word"

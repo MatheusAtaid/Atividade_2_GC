@@ -1,9 +1,6 @@
 name: Stidents Api Pipeline
 
-on: 
-  push:
-    branches:
-      - update
+on: [push]
 
 jobs:
   hello:

@@ -9,13 +9,13 @@ jobs:
     steps:
       - name: "Say Hello"
         run: echo "Hello Word"
-        
+
   listing:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repo
-        use: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: List all files
         run: ls
 

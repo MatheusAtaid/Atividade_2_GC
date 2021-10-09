@@ -7,7 +7,7 @@ on:
 jobs:
 
   environment-variables-print:
-    name: "Print Person Name"
+    name: "Person Name"
     runs-on: ubuntu-latest
     env:
       NAME: ${{secrets.name}}

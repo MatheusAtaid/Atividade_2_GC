@@ -1,0 +1,45 @@
+name: Pipeline Principal
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  environment-variables-print:
+    name: "Print Person Name"
+    runs-on: ubuntu-latest
+    env:
+      NAME: ${{secrets.name}}
+      WORLD: "Earth"
+    steps:
+      - name: Print Hello {{Person(Variable)}}
+        run: echo Hello $NAME !, Welcome to $WORLD 
+
+  build:
+    name: "Build Project"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Installing Dependences
+        working-directory: ./backend
+        run: npm install
+      - name: Build Project
+        working-directory: ./backend
+        run: npm run build
+      - name: Show Dist Folder
+        run: ls ./backend/dist/
+      - name: Cat Index.js
+        run: cat ./backend/dist/index.js
+
+  test:
+    name: "Run Tests"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Installing Dependences
+        working-directory: ./backend
+        run: npm install
+      - name: Run Tests
+        working-directory: ./backend
+        run: npm run test

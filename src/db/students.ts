@@ -33,6 +33,12 @@ async function addStudent(student: Student) {
   return createdStudent;
 }
 
+/**
+ * Returns student list
+ * @returns Students
+ */
+const getStudents = () => getConnection().getRepository(Student).find();
+
 function deleteStudents(id: Number) {
   var index = students.findIndex(x => x.id === id);
   if (index > -1) {
@@ -40,12 +46,6 @@ function deleteStudents(id: Number) {
   }
   return Promise.resolve(index);
 }
-
-/**
- * Returns student list
- * @returns Students
- */
-const getStudents = () => getConnection().getRepository(Student).find();
 
 function updateStudent(student: Student) {
   return new Promise<null|Student>((resolve) => {

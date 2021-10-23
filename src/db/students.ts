@@ -39,23 +39,29 @@ async function addStudent(student: Student) {
  */
 const getStudents = () => getConnection().getRepository(Student).find();
 
-function deleteStudents(id: Number) {
+async function deleteStudents(id: number) {
+  return Promise.resolve(await getConnection().getRepository(Student).delete(id));
+}
+
+/*function deleteStudents(id: Number) {
   var index = students.findIndex(x => x.id === id);
   if (index > -1) {
     students.splice(index, 1);
   }
   return Promise.resolve(index);
-}
+}*/
 
 function updateStudent(student: Student) {
   return new Promise<null|Student>((resolve) => {
-    const id = students.findIndex(element => element.id == student.id);
+    const id = student.id;
+    const property = getConnection().getRepository(Student).findOne({
+      where: { id }
+    });
 
-    if(id == -1)
-      resolve(null);
-
-    students[id] = student;
-    resolve(students[id]);
+    return getConnection().getRepository(Student).save({
+      ...property, // existing fields
+      ...student // updated fields
+    });
   });
 }
 

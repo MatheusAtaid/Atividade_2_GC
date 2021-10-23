@@ -37,7 +37,7 @@ export default function Home() {
               <p>Adicione novos estudantes na API</p>
             </a>
           </Link>
-          <Link href="/put" passHref>
+          <Link href="/update" passHref>
             <a className={styles.card}>
               <h2>
                 Rota <span className="orange">PUT</span> &rarr;

@@ -11,7 +11,7 @@ jobs:
         env:
           PLANET: Earth
           NAME: {{ secrets.NAME }}
-        run: echo "Hello $NAME from planet $PLANET"
+        run: echo "Hello $TEste from planet $PLANET"
 
   listing:
     runs-on: ubuntu-latest

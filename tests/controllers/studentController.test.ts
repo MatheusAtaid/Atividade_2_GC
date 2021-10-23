@@ -55,40 +55,25 @@ jest.mock('../../src/db/students', () => {
     }),
     deleteStudent: jest.fn((id: number) => {
       let index = students.findIndex((element) => element.id == id);
-      if (index == -1) return Promise.resolve(false);
-
-      students.splice(index, 1);
-      return Promise.resolve(index != -1);
+      if (index != -1)
+        students.splice(index, 1);
+        
+      return Promise.resolve(index);
     }),
-    putStudent: jest.fn((id: number, student: Student) => {
-      let index = students.findIndex((element) => element.id == id);
-      if (index == -1) return Promise.resolve(false);
+    updateStudent: jest.fn((student: Student) => {
+      let index = students.findIndex((element) => element.id == student.id);
+      if (index == -1)
+        return Promise.resolve(null);
 
-      students[index] = { id, ...student };
-      return Promise.resolve(true);
+      students[index].birth = student.birth;
+      students[index].city = student.city;
+      students[index].email = student.email;
+      students[index].name = student.name;
+
+      return Promise.resolve(students[index]);
     })
   }
 })
-
-/*jest.mock("../../src/db/students", () => {
-  const originalMock = jest.requireActual("../../src/db/students");
-
-  const students = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john.doe@example.com",
-      city: "Belo Horizonte",
-      birth: new Date("11/13/1999").toISOString(),
-    },
-  ];
-
-  return {
-    __esModule: true,
-    ...originalMock,
-    getStudents: jest.fn(() => Promise.resolve(students)),
-  };
-});*/
 
 describe("Test student requests", () => {
   it("should return the example student", async () => {

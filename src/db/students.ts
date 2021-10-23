@@ -1,4 +1,5 @@
-import { Student } from "../types/Student";
+import { Student } from "../entities/Students";
+import { Entity, getConnection } from "typeorm";
 
 const students: Student[] = [
   {
@@ -22,13 +23,14 @@ const students: Student[] = [
  * @param student New student
  * @returns new student
  */
-function addStudent(student: Student) {
-  var newStudent = {
-    id: students.length ? students[students.length - 1].id! + 1 : 1,
-    ...student,
-  };
-  students.push(Object.freeze(newStudent));
-  return Promise.resolve(newStudent);
+async function addStudent(student: Student) {
+  const newStudent = new Student(student);
+
+  const repository = await getConnection().getRepository(Student);
+
+  const createdStudent = await repository.save(newStudent);
+
+  return createdStudent;
 }
 
 function deleteStudents(id: Number) {
@@ -43,7 +45,7 @@ function deleteStudents(id: Number) {
  * Returns student list
  * @returns Students
  */
-const getStudents = () => Promise.resolve(Object.freeze([...students]));
+const getStudents = () => getConnection().getRepository(Student).find();
 
 function updateStudent(student: Student) {
   return new Promise<null|Student>((resolve) => {
